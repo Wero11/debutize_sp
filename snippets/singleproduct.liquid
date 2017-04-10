@@ -1,0 +1,174 @@
+<div class="container12">
+<div class="singleproductblock">
+  <div class="w3-row"  style="background: #e5e5e5;">
+    <div class="w3-col l6 m6">
+      <div class="block img">
+          {% for product in collections.home-page-single-product.products  %}
+           <div class="product_img_outer page-scroll" id="scroll_point2" style="">
+           {% for image in product.images limit:1 %}
+               <img src="{{ image.src | product_img_url: 'grande' }}" id="pro-main-img" class="w3-image singleproductimg">
+          {%comment%}
+          <a class="fancybox-effects-a" id="popup" href="{{ image.src | img_url: '1024x1024' }}">       
+            <img src="{{ image.src | product_img_url: 'grande' }}" id="pro-main-img" class="w3-image singleproductimg">
+          </a>
+          {%endcomment%}
+          {% endfor %} 
+          </div>
+          {%endfor%}      
+      </div> 
+    </div>
+      <div class="w3-col l6 m6">
+      <div class="block containent">
+                           {% for product in collections.home-page-single-product.products %}
+                                    <h3>{{ product.title }}</h3>
+                                    <div class="price_sec_home">
+                                      <div class="w3-col" style="width:auto;float: right;margin-right: 40%">
+                                      <div class="w3-col" style="width:auto"><p style="font-size: 2.4em;
+                                        padding: 0px;
+                                        margin: 0px;
+                                        line-height: 1;
+                                        font-weight: bolder;
+                                        color: gray;
+                                        font-family: 'Open Sans', sans-serif;">OFFER</p></div>
+                                      <div class="w3-rest"><p style="font-size: 0.9em;
+                                        line-height: 1;
+                                        margin: 0px;
+                                        padding: 0px;
+                                        padding: 5px 4px;
+                                        font-weight: bolder;
+                                        color: gray;">FOR FIRST<br>ORDER</p></div>
+                                </div>
+                                   {% include 'product-price' %}
+                                    </div> 
+                                                               
+                    <!-------[ SR Quantity&add to cart 16-1-17]------->
+                          <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+                            
+                            <select name="id" id="productSelect" class="product-single__variants variant_field_hidden">
+                              {% for variant in product.variants %}
+                                <option type="hidden" name="id" value="{{ product.variants.first.id }}">{{ variant.title }} - {% if variant.available %}{{ variant.price | money_with_currency }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</option>
+                              {% endfor %}
+                            </select>
+                               <div class="clear"></div>
+                          
+                            <div class="add_to_cart_home">
+                              <div class="w3-row">
+     {% comment %}<div class="w3-col" style="width:auto;">
+                                    <div class="w3-row">
+                                      <div class="w3-col" style="width:auto"><p style="font-size: 2.4em;
+                                        padding: 0px;
+                                        margin: 0px;
+                                        line-height: 1;
+                                        font-weight: bolder;
+                                        color: gray;
+                                        font-family: 'Open Sans', sans-serif;">OFFER</p></div>
+                                      <div class="w3-rest"><p style="font-size: 0.9em;
+                                        line-height: 1;
+                                        margin: 0px;
+                                        padding: 0px;
+                                        padding: 5px 4px;
+                                        font-weight: bolder;
+                                        color: gray;">FOR FIRST<br>ORDER</p></div>
+                                    </div>
+                                </div>{% endcomment %}
+                                <div class="w3-rest">
+                                
+                                    <a href="{{ product.url }}" name="add" id="AddToCart" class="btn new-addtocart-btn cart_btn_new" style="border: 0px; border-radius: 0px; font-size: 1em; height: auto; font-weight: bolder; margin-left: 0px; width: auto; max-width: 100%; padding: 5px 20px;">
+                                      <span id="AddToCartText" class="cart_icon1">Shop Now&nbsp;&nbsp;<i class="fa fa-shopping-cart"></i>{%comment%}{{ 'products.product.add_to_cart' | t }}{%endcomment%}</span>
+                                      {% comment %}<span class="cart_icon2"><img src="https://cdn.shopify.com/s/files/1/1830/3553/t/1/assets/cart_icon.png?3692185566837618879"></span>{% endcomment %}
+                                   </a>                               
+                                </div><br>
+                                <div class="w3-rest">
+                                <p style="color:red;"><b> NOT AVAILABLE IN STORES  </b></p>
+                                <p style="color:red;"><b>LIMITED TIME OFFER ENDS SOON!</b></p>
+                                 </div>
+                              </div>
+                            {% comment %}
+                              <div class="first_order">
+                                <span class="span1">OFFER</span>
+                                <span class="span2">FOR FIRST ORDER</span>
+                              </div>
+                              <div class="first_order">
+                            <button type="submit" name="add" id="AddToCart" class="btn new-addtocart-btn cart_btn_new">
+                              <span id="AddToCartText" class="cart_icon1">Shop Now{%comment%}{{ 'products.product.add_to_cart' | t }}{%endcomment%}</span><span class="cart_icon2"><img src="https://cdn.shopify.com/s/files/1/1830/3553/t/1/assets/cart_icon.png?3692185566837618879"></span>
+                            </button>
+                              </div>
+                            {% endcomment %}  
+                            </div>
+                        
+                               <div class="clear"></div>
+                          </form>
+                    <!-------[ SR Quantity&add to cart 16-1-17]------->
+                                 
+                         {% endfor %}     
+      </div>
+    </div>  
+  </div>
+</div>
+</div>
+
+
+{% comment %}
+This Was old 
+<div class="product_outer">
+<div class="pro_sec_outer pro_sec_outer_img">
+{% for product in collections.home-page-single-product.products  %}
+ <div class="product_img_outer page-scroll" id="scroll_point2">
+ {% for image in product.images limit:1 %}
+     <img src="{{ image.src | product_img_url: 'grande' }}" id="pro-main-img" class="thumb123">
+{%comment%}
+<a class="fancybox-effects-a" id="popup" href="{{ image.src | img_url: '1024x1024' }}">       
+  <img src="{{ image.src | product_img_url: 'grande' }}" id="pro-main-img" class="thumb123">
+</a>
+{%endcomment%}
+{% endfor %} 
+</div>
+{%endfor%}
+</div>
+<!--[A]-->
+ <!--[A]-->
+<div class="pro_sec_outer pro_sec_outer_content">
+ <div class="product_info_outer">
+        {% for product in collections.home-page-single-product.products %}
+                                    <h3>{{ product.title }}</h3>
+                                    <div class="price_sec_home">
+                                   {% include 'product-price' %}
+                                    </div> 
+                                                               
+                    <!-------[ SR Quantity&add to cart 16-1-17]------->
+                          <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+                            
+                            <select name="id" id="productSelect" class="product-single__variants variant_field_hidden">
+                              {% for variant in product.variants %}
+                                <option type="hidden" name="id" value="{{ product.variants.first.id }}">{{ variant.title }} - {% if variant.available %}{{ variant.price | money_with_currency }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</option>
+                              {% endfor %}
+                            </select>
+                               <div class="clear"></div>
+                          
+                            <div class="add_to_cart_home">
+                              <div class="first_order">
+                                <span class="span1">OFFER</span>
+                                <span class="span2">FOR FIRST ORDER</span>
+                              </div>
+                              <div class="first_order">
+                            <button type="submit" name="add" id="AddToCart" class="btn new-addtocart-btn cart_btn_new">
+                              <span id="AddToCartText" class="cart_icon1">Shop Now{%comment%}{{ 'products.product.add_to_cart' | t }}{%endcomment%}</span><span class="cart_icon2"><img src="https://cdn.shopify.com/s/files/1/1830/3553/t/1/assets/cart_icon.png?3692185566837618879"></span>
+                            </button>
+                              </div>
+                            </div>
+                        
+                               <div class="clear"></div>
+                          </form>
+                    <!-------[ SR Quantity&add to cart 16-1-17]------->
+                                 
+                         {% endfor %}         
+                           
+                                
+                                </div>
+                            </div>
+                          <!--[A]-->
+</div>
+{% endcomment %}
+
+
+<div class="clearfix"></div>
